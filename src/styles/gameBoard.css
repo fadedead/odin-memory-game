@@ -1,0 +1,34 @@
+.game {
+	display: flex;
+	align-items: center;
+}
+
+.board {
+	display: grid;
+	grid-auto-rows: 1fr;
+	grid-template-columns: 1fr 1fr;
+	justify-items: center;
+
+	background: #393e46;
+}
+
+img {
+	height: 9.5rem;
+
+	object-position: center;
+	object-fit: cover;
+
+	border: 1px solid black;
+}
+
+@media only screen and (min-width: 601px) {
+	.board {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+	.board {
+		grid-template-columns: repeat(12, 1fr);
+	}
+}
