@@ -4,11 +4,30 @@ import { CardsPlayable } from "./CardsPlayable";
 
 function GameBoard() {
   const [currScore, setScore] = useState(0);
+  const [winCon, setWin] = useState("");
+
+  if (winCon === "WON") {
+    return (
+      <div className="gameControl">
+        <p>You win!!</p>
+        <button onClick={() => setWin("")}>Play Again</button>
+      </div>
+    );
+  }
+
+  if (winCon === "LOST") {
+    return (
+      <div className="gameControl">
+        <p>You Lose</p>
+        <button onClick={() => setWin("")}>Play Again</button>
+      </div>
+    );
+  }
 
   return (
     <>
-      <CardsPlayable setScore={setScore} />
-      <p>{currScore}</p>
+      <p className="scoreBoard">Score: {currScore}</p>
+      <CardsPlayable setScore={setScore} setWin={setWin} />
     </>
   );
 }

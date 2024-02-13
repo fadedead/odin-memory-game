@@ -1,20 +1,6 @@
 import { useEffect, useState } from "react";
 
-async function fetchImages(pokemon) {
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      mode: "cors",
-    });
-    return response.json();
-  } catch (error) {
-    console.error("There was a problem with the fetch operation:", error);
-    throw error;
-  }
-}
-
-function CardsPlayable({ setScore }) {
+function CardsPlayable({ setScore, setWin }) {
   const [currCards, setCards] = useState([]);
   const [usedCards, setCardClicked] = useState([]);
 
@@ -65,10 +51,19 @@ function CardsPlayable({ setScore }) {
     if (usedCards.includes(clickedImage)) {
       setScore(0);
       setCardClicked([]);
+      setWin("LOST");
       return;
     }
-    setScore((score) => score + 1);
+
+    setScore((score) => {
+      if (score + 1 == 24) {
+        setWin("WON");
+      }
+      return score + 1;
+    });
     setCardClicked([...usedCards, clickedImage]);
+    const newShuffle = shuffleImages(currCards);
+    setCards(newShuffle);
   }
 
   return (
@@ -80,6 +75,35 @@ function CardsPlayable({ setScore }) {
       </div>
     </div>
   );
+}
+
+async function fetchImages(pokemon) {
+  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      mode: "cors",
+    });
+    return response.json();
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+    throw error;
+  }
+}
+
+function shuffleImages(imagesObject) {
+  let images = Object.entries(imagesObject);
+  for (let i = 0; i < images.length; i++) {
+    let indexOne = Math.floor(Math.random() * images.length - 1) + 1;
+    let indexTwo = Math.floor(Math.random() * images.length - 1) + 1;
+
+    [images[indexOne], images[indexTwo]] = [images[indexTwo], images[indexOne]];
+  }
+
+  return images.reduce((obj, val) => {
+    obj[val[0]] = val[1];
+    return obj;
+  }, {});
 }
 
 export { CardsPlayable };
