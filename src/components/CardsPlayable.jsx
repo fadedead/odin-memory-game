@@ -49,7 +49,6 @@ function CardsPlayable({ setScore, setWin }) {
   function handleOnClick(e) {
     let clickedImage = e.target.alt.toString();
     if (usedCards.includes(clickedImage)) {
-      setScore(0);
       setCardClicked([]);
       setWin("LOST");
       return;

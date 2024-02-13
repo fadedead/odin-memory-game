@@ -1,5 +1,7 @@
 .header {
+	font-size: 2rem;
+	text-align: center;
 	height: 5vh;
-	background-color: #282828;
+	background-color: #212121;
 	color: white;
 }

@@ -10,7 +10,14 @@ function GameBoard() {
     return (
       <div className="gameControl">
         <p>You win!!</p>
-        <button onClick={() => setWin("")}>Play Again</button>
+        <button
+          onClick={() => {
+            setWin("");
+            setScore(0);
+          }}
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -19,7 +26,15 @@ function GameBoard() {
     return (
       <div className="gameControl">
         <p>You Lose</p>
-        <button onClick={() => setWin("")}>Play Again</button>
+        <p>Score: {currScore}</p>
+        <button
+          onClick={() => {
+            setWin("");
+            setScore(0);
+          }}
+        >
+          Play Again
+        </button>
       </div>
     );
   }
